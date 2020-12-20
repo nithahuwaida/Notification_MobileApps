@@ -8,15 +8,11 @@
 
 import React, { useEffect } from 'react';
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
   Platform,
 } from 'react-native';
 import firebase from 'react-native-firebase';
+
+import SendNotification from './src/notification/index'
 
 const App = () => {
   useEffect(()=>{
@@ -28,6 +24,10 @@ const App = () => {
   // * get token from server
     const getToken = async()=>{
       const firebaseToken = await firebase.messaging().getToken();
+      //subscribe topic
+      if(firebaseToken){
+        firebase.messaging().subscribeToTopic('notificationDriver');
+      }
       console.log(firebaseToken)
     }
 
@@ -64,11 +64,7 @@ const App = () => {
       })
     }
 
-  return (
-    <View>
-      <Text>Application TEST</Text>
-    </View>
-  );
+  return <SendNotification/>;
 };
 
 export default App;
