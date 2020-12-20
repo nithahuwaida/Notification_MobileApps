@@ -20,9 +20,16 @@ import firebase from 'react-native-firebase';
 
 const App = () => {
   useEffect(()=>{
+    getToken();
     createChannel();
     notificationListener();
   },[])
+
+  // * get token from server
+    const getToken = async()=>{
+      const firebaseToken = await firebase.messaging().getToken();
+      console.log(firebaseToken)
+    }
 
   // * create channel
     const createChannel = () =>{
@@ -59,7 +66,7 @@ const App = () => {
 
   return (
     <View>
-      <Text>Application</Text>
+      <Text>Application TEST</Text>
     </View>
   );
 };
